@@ -13,8 +13,8 @@ public class Program {
 		
 		List<StockProduct> cartList = onlineShop.getSavedCart("9204064316");
 		
-		for (StockProduct product : cartList) {
-			System.out.println(product.toString());
+		for (StockProduct stockProduct : cartList) {
+			System.out.println(stockProduct.toString());
 		}
 	}
 

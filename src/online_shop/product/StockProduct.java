@@ -34,7 +34,7 @@ public class StockProduct {
 
 	@Override
 	public String toString() {
-		return product.toString() + " amount: " + amount;
+		return product.toString() + ", amount: " + amount + ", price: " + (product.calculatePrice() * amount) + " sek";
 	}
 	
 	

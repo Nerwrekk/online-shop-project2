@@ -6,6 +6,12 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * FileManager sole purpose is to manage all files that are inside the system. 
+ * 
+ * The Singleton pattern is used here since it would be unnecessary to have multiple instances of this class because 
+ * they would all have the exact same behaviour.
+ */
 public class FileManager {
 	
 	private static FileManager instance;
@@ -13,7 +19,6 @@ public class FileManager {
 	public static final String PRODUCT_PATH = "files/products.csv";
 	public static final String CART_DIRECTORY = "files/saved_carts";
 	
-	private File productsFile;
 	
 	private FileManager() {
 		initilize();
@@ -27,12 +32,9 @@ public class FileManager {
 		return instance;
 	}
 
-	public File getProductsFile() {
-		return instance.productsFile;
-	}
 	
 	private void initilize() {
-		productsFile = new File(PRODUCT_PATH);
+		
 	}
 	
 	public void writeToFile(File file) {

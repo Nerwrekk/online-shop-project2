@@ -1,6 +1,11 @@
 package online_shop.product;
 
-public class Product {
+import online_shop.Priceable;
+
+/*
+ * This class 
+ */
+public class Product implements Priceable {
 	private String name;
 	private String description;
 	private double price;
@@ -13,8 +18,15 @@ public class Product {
 		this.price = price;
 		this.myCatagory = myCatagory;
 		this.myManufacturer = myManufacturer;
-
 	}
+
+	
+
+	@Override
+	public double calculatePrice() {
+		return price;
+	}
+
 
 
 	public String getName() {
@@ -69,6 +81,6 @@ public class Product {
 
 	@Override
 	public String toString() {
-		return this.name;
+		return this.name + ", " + this.description;
 	}
 }
