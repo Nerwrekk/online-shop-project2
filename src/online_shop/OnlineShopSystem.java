@@ -49,15 +49,34 @@ public class OnlineShopSystem {
 				System.out.println(list);
 			}
 			System.out.print("Cart: ");
-			int choosenCartNum = userInput.nextInt() - 1;
-			System.out.println("You choose cart: " + choosenCartNum);
-			//check so the number is not bigger or less then list size
-			if (choosenCartNum < 0 || choosenCartNum > userSavedCarts.size()) {
-				System.out.println("Invalid number, please try again");
-				continue;
-			} else {
+			String choosenCart = userInput.nextLine();
+			if (isValidatedCartNumber(choosenCart, userSavedCarts)) {
+				int choosenCartNum = Integer.parseInt(choosenCart) -1;
+				System.out.println("You choose cart: " + (choosenCartNum + 1));
 				return choosenCartNum;
+			} else {
+				System.out.println("Invalid input, please try again.");
 			}
+			
+		}
+	}
+	
+	private boolean isValidatedCartNumber(String numberString, List<List<String>> userSavedCarts) {
+		//Convert string to an integer
+		int number = 0;
+		try {
+			//check if we got a value of type int
+			number = Integer.parseInt(numberString);
+		} catch (Exception e) {
+			return false;
+		}
+		
+		//check so the number is not bigger or less then list size
+		if (number < 0 || number > userSavedCarts.size()) {
+			System.out.println("Invalid number, please try again");
+			return false;
+		} else {
+			return true;
 		}
 	}
 	
