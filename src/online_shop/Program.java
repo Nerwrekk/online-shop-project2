@@ -10,10 +10,12 @@ public class Program {
 	public static void main(String[] args) {
 		
 		OnlineShopSystem onlineShop = new OnlineShopSystem();
+		WareHouse wareHouse = new WareHouse();
+		Cart userCart = new Cart(onlineShop, wareHouse);
 		
-		List<StockProduct> cartList = onlineShop.getSavedCart("9204064316");
+		userCart.getSavedCart("9204064316");
 		
-		for (StockProduct stockProduct : cartList) {
+		for (StockProduct stockProduct : userCart.getMyList()) {
 			System.out.println(stockProduct.toString());
 		}
 	}

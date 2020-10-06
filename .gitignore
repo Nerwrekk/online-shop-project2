@@ -1,6 +1,7 @@
 /bin/
 /.metadata/
 /.idea/
+/.vs/
 *.tree
 .metadata/.plugins/org.eclipse.core.resources/.root/3.tree
 .metadata/.plugins/org.eclipse.ui.editors/dialog_settings.xml

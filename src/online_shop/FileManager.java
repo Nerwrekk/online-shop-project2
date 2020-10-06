@@ -10,7 +10,7 @@ import java.util.List;
  * FileManager sole purpose is to manage all files that are inside the system. 
  * 
  * The Singleton pattern is used here since it would be unnecessary to have multiple instances of this class because 
- * they would all have the exact same behaviour.
+ * they would all do the exact same thing.
  */
 public class FileManager {
 	

@@ -21,12 +21,10 @@ public class Product implements Priceable {
 	}
 
 	
-
 	@Override
 	public double calculatePrice() {
 		return price;
 	}
-
 
 
 	public String getName() {

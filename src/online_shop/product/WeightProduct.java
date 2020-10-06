@@ -1,5 +1,10 @@
 package online_shop.product;
 
+/*
+ * Products that calculates its price by its weight.
+ * 
+ * TODO: maybe generate some randomness to the weight attribute?
+ */
 public class WeightProduct extends Product {
 	
 	private double weight;
