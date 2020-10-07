@@ -46,7 +46,6 @@ public class WareHouse {
 		
 		for (String productString : productStrings) {
 			String[] productRow = productString.split(";"); 
-			//if the length of productRow is equal to 6 that means it is a "WeightProduct"
 				allProducts.add(new Product(productRow[0], productRow[1], Manufacturer.getManufacturer(productRow[2]), 
 							Catagory.getCatagory(productRow[3]), Double.parseDouble(productRow[4])));
 		}
