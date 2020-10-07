@@ -6,7 +6,6 @@ import java.util.List;
 import online_shop.product.Catagory;
 import online_shop.product.Manufacturer;
 import online_shop.product.Product;
-import online_shop.product.WeightProduct;
 
 /*
  * This class will store the products and manage the quantity of each product.
@@ -48,13 +47,8 @@ public class WareHouse {
 		for (String productString : productStrings) {
 			String[] productRow = productString.split(";"); 
 			//if the length of productRow is equal to 6 that means it is a "WeightProduct"
-			if (productRow.length == 6) {
-				allProducts.add(new WeightProduct(productRow[0], productRow[1], Manufacturer.getManufacturer(productRow[2]), 
-						Catagory.getCatagory(productRow[3]), Double.parseDouble(productRow[4]), Double.parseDouble(productRow[5])));
-			} else {
 				allProducts.add(new Product(productRow[0], productRow[1], Manufacturer.getManufacturer(productRow[2]), 
 							Catagory.getCatagory(productRow[3]), Double.parseDouble(productRow[4])));
-			}
 		}
 		
 		/*
@@ -65,9 +59,6 @@ public class WareHouse {
 			System.out.println(product.getMyManufacturer().getName());
 			System.out.println(product.getMyCatagory().getName());
 			System.out.println(product.getPrice());
-			if (product instanceof WeightProduct) {
-				System.out.println(((WeightProduct) product).getWeight() + "kg"); 
-			}
 		}
 		*/
 		

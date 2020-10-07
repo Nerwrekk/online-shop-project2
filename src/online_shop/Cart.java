@@ -5,32 +5,39 @@ import java.util.List;
 import java.util.Scanner;
 
 import online_shop.product.Product;
-import online_shop.product.StockProduct;
 
 public class Cart {
 	
-	private List<StockProduct> myList;
+	private List<Product> myList;
 	private Scanner userInput;
 	private OnlineShopSystem onlineShop;
 	private WareHouse wareHouse;
 	
 	
 	public Cart(OnlineShopSystem onlineShop, WareHouse wareHouse) {
-		myList = new ArrayList<StockProduct>();
+		myList = new ArrayList<Product>();
 		this.userInput = new Scanner(System.in);
 		this.onlineShop = onlineShop;
 		this.wareHouse = wareHouse;
 	}
 	
 	
-	public List<StockProduct> getMyList() {
+	public List<Product> getMyList() {
 		return myList;
 	}
 
-	public void setMyList(List<StockProduct> myList) {
+	public void setMyList(List<Product> myList) {
 		this.myList = myList;
 	}
 
+	public void viewCart() {
+		double totalCost = 0.0;
+		for (Product product : myList) {
+			System.out.println(product.toString());
+			totalCost += product.calculatePrice();
+		}
+		System.out.println("The final price is: " + totalCost + " sek");
+	}
 
 	public void getSavedCart(String securityNumber) {
 		List<List<String>> carts = FileManager.getInstance().loadInCarts();
@@ -107,8 +114,8 @@ public class Cart {
 	 * This method is the last step when retrieving an existing cart. It recreates all the products that are inside the cart.
 	 * This method is here because OnlineShopSystem is in charge of containing all existing products.
 	 */
-	public List<StockProduct> generateCart(List<String> cartString, String securityNumber) {
-		List<StockProduct> userCart = new ArrayList<StockProduct>();
+	public List<Product> generateCart(List<String> cartString, String securityNumber) {
+		List<Product> userCart = new ArrayList<Product>();
 		
 		for (String productString : cartString) {
 			//The first line is always the security number so we skip it.
@@ -120,8 +127,9 @@ public class Cart {
 			Product product = wareHouse.getProduct(productStringArray[0]);
 			int amount = Integer.parseInt(productStringArray[1]);
 			
-			StockProduct stockProduct = new StockProduct(product, amount);
-			userCart.add(stockProduct);
+			product.setAmount(amount);
+			
+			userCart.add(product);
 		}
 		
 		return userCart;

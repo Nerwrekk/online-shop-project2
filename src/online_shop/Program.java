@@ -3,7 +3,6 @@ package online_shop;
 import java.util.List;
 
 import online_shop.product.Product;
-import online_shop.product.StockProduct;
 
 public class Program {
 
@@ -14,10 +13,7 @@ public class Program {
 		Cart userCart = new Cart(onlineShop, wareHouse);
 		
 		userCart.getSavedCart("9204064316");
-		
-		for (StockProduct stockProduct : userCart.getMyList()) {
-			System.out.println(stockProduct.toString());
-		}
+		userCart.viewCart();
 	}
 
 }

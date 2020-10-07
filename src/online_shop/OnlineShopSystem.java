@@ -7,8 +7,6 @@ import java.util.Scanner;
 import online_shop.product.Catagory;
 import online_shop.product.Manufacturer;
 import online_shop.product.Product;
-import online_shop.product.StockProduct;
-import online_shop.product.WeightProduct;
 
 /*
  * OnlineShopSystem purpose is to guide a user through the online store so they can buy the
@@ -25,7 +23,9 @@ public class OnlineShopSystem {
 
 	}
 	
-	
+	public void goShopping(Cart userCart) {
+		
+	}
 	
 	
 	

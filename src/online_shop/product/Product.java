@@ -3,7 +3,7 @@ package online_shop.product;
 import online_shop.Priceable;
 
 /*
- * This class 
+ * This class is in charge of creating every unique product in the store. 
  */
 public class Product implements Priceable {
 	private String name;
@@ -11,6 +11,7 @@ public class Product implements Priceable {
 	private double price;
 	private Catagory myCatagory;
 	private Manufacturer myManufacturer;
+	private int amount;
 	
 	public Product(String name, String description, Manufacturer myManufacturer, Catagory myCatagory, double price) {
 		this.name = name;
@@ -19,13 +20,6 @@ public class Product implements Priceable {
 		this.myCatagory = myCatagory;
 		this.myManufacturer = myManufacturer;
 	}
-
-	
-	@Override
-	public double calculatePrice() {
-		return price;
-	}
-
 
 	public String getName() {
 		return name;
@@ -75,10 +69,26 @@ public class Product implements Priceable {
 	public void setMyManufacturer(Manufacturer myManufacturer) {
 		this.myManufacturer = myManufacturer;
 	}
+	
+	
+	public int getAmount() {
+		return amount;
+	}
 
 
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	
+	@Override
+	public double calculatePrice() {
+		return (amount * price);
+	}
+	
 	@Override
 	public String toString() {
-		return this.name + ", " + this.description;
+		return this.name + ", " + this.description + ", amount: " + this.amount + 
+				", price: " + this.price + ", total cost: " + this.calculatePrice() + " sek";
 	}
 }
