@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import javax.smartcardio.CommandAPDU;
+
 import online_shop.product.Catagory;
 import online_shop.product.Manufacturer;
 import online_shop.product.Product;
@@ -18,13 +20,29 @@ public class OnlineShopSystem {
 	private WareHouse wareHouse;
 	private Scanner userInput;
 
+	private String[] commands = {"view catagories", "view manufacturer"};
 	
 	public OnlineShopSystem() {
-
+		userInput = new Scanner(System.in);
 	}
 	
-	public void goShopping(Cart userCart) {
-		
+	public void goShopping(Cart userCart, WareHouse wareHouse) {
+		System.out.println("Hello! Welcome to Console Shop!");
+		while(true) {
+			System.out.println("What would you like to do?");
+			String command = userInput.nextLine();
+			
+			switch (command) {
+				case "help":
+					System.out.println("help");
+					break;
+				case "exit":
+					System.out.println("goodbye");
+					return;
+				default:
+					break;
+				}
+		}
 	}
 	
 	public List<String> search(String searchString) {
