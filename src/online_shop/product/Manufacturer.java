@@ -23,5 +23,4 @@ public enum Manufacturer {
 		}
 		return null;
 	}
-
 }

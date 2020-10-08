@@ -112,13 +112,12 @@ public class Product implements Priceable {
 
 	// Returns the properties of a product formatted for saving in a CSV-file.
 	public String toCSV() {
-		System.out.println(myManufacturer);
 		String csv = new String();
 
 		csv = 	name + ";" +
 				description + ";" +
-				myManufacturer + ";" +
-				myCatagory + ";" +
+				myManufacturer.getName() + ";" +
+				myCatagory.getName() + ";" +
 				price + ";";
 
 		return	csv;
