@@ -34,7 +34,6 @@ public class Product implements Priceable {
 	public Product (String[] properties) {
 		this.name = properties[0];
 		this.description = properties[1];
-		System.out.println();
 		this.myManufacturer = Manufacturer.getManufacturer(properties[2]);
 		this.myCatagory = Catagory.getCatagory(properties[3]);
 		this.price = Double.parseDouble(properties[4]);

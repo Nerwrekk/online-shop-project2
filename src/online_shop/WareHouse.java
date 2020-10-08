@@ -61,8 +61,6 @@ public class WareHouse {
 			sb.append(product.toCSV());
 			sb.append('\n');
 		}
-		System.out.println(sb);
-		System.out.println(sb.toString());
 
 		FileManager.getInstance().writeToFile(sb.toString(), stockPath);
 	}
