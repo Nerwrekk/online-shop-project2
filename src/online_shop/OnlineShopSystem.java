@@ -33,7 +33,7 @@ public class OnlineShopSystem {
 		return screen;
 	}
 
-	public List<String> add(Product product, int amount) {
+	public List<String> add(String productName, int amount) {
 		List<String> screen = new ArrayList();
 
 		return screen;
@@ -51,9 +51,9 @@ public class OnlineShopSystem {
 		return screen;
 	}
 
-	public List<String> viewItem (Product product) {
+	public List<String> viewItem (String productName) {
 		List<String> screen = new ArrayList();
-
+			
 		return screen;
 	}
 	
