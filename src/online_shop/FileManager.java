@@ -1,8 +1,6 @@
 package online_shop;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +55,14 @@ public class FileManager {
 		}
 		
 		return null;
+	}
+
+	public void writeToFile(String csv, String path) {
+		try (PrintWriter writer = new PrintWriter(new File(path));) {
+			writer.write(csv);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
 	public List<List<String>> loadInCarts() {

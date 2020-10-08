@@ -9,11 +9,15 @@ public class Program {
 	public static void main(String[] args) {
 		
 		OnlineShopSystem onlineShop = new OnlineShopSystem();
-		WareHouse wareHouse = new WareHouse();
-		Cart userCart = new Cart(onlineShop, wareHouse);
+		WareHouse wareHouse = new WareHouse(FileManager.PRODUCT_PATH);
+
+		wareHouse.loadStock();
+		wareHouse.saveStock();
+
+		//Cart userCart = new Cart(onlineShop, wareHouse);
 		
-		userCart.getSavedCart("9204064316");
-		userCart.viewCart();
+		//userCart.getSavedCart("9204064316");
+		//userCart.viewCart();
 	}
 
 }

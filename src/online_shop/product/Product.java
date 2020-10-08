@@ -21,6 +21,25 @@ public class Product implements Priceable {
 		this.myManufacturer = myManufacturer;
 	}
 
+	// Creates a new product from another product
+	public Product(Product product) {
+		this.name = product.name;
+		this.description = product.description;
+		this.price = product.price;
+		this.myCatagory = product.myCatagory;
+		this.myManufacturer = product.myManufacturer;
+	}
+
+	// Creates a product based on a list of property strings.
+	public Product (String[] properties) {
+		this.name = properties[0];
+		this.description = properties[1];
+		System.out.println();
+		this.myManufacturer = Manufacturer.getManufacturer(properties[2]);
+		this.myCatagory = Catagory.getCatagory(properties[3]);
+		this.price = Double.parseDouble(properties[4]);
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -90,5 +109,30 @@ public class Product implements Priceable {
 	public String toString() {
 		return this.name + ", " + this.description + ", amount: " + this.amount + 
 				", price: " + this.price + ", total cost: " + this.calculatePrice() + " sek";
+	}
+
+	// Returns the properties of a product formatted for saving in a CSV-file.
+	public String toCSV() {
+		System.out.println(myManufacturer);
+		String csv = new String();
+
+		csv = 	name + ";" +
+				description + ";" +
+				myManufacturer + ";" +
+				myCatagory + ";" +
+				price + ";";
+
+		return	csv;
+	}
+
+	// Creates a new product from a CSV-string.
+	public static Product fromCSV(String csv) {
+		String[] properties = csvToProperties(csv);
+		return new Product(properties);
+	}
+
+	// Creates a string[] of properties from a CSV-string.
+	public static String[] csvToProperties(String properties) {
+		return (properties.split(";"));
 	}
 }
