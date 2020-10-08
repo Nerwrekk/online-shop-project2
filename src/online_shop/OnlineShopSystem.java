@@ -18,15 +18,19 @@ public class OnlineShopSystem {
 	private WareHouse wareHouse;
 	private Scanner userInput;
 
-	private String[] commands = {"view catagories", "view manufacturer"};
+	private String[] commands = {"view catagories", "view manufacturer", "view cart", "get cart"};
 	
 	public OnlineShopSystem() {
 		userInput = new Scanner(System.in);
 	}
 	
 	public void goShopping(Cart userCart, WareHouse wareHouse) {
-		System.out.println("Hello! Welcome to Console Shop!");
-		printCommands();
+		System.out.println("============================");
+		System.out.println("| Welcome to Console Shop! |");
+		System.out.println("============================");
+		
+		//printCommands();
+		
 		while(true) {
 			System.out.println("What would you like to do?");
 			System.out.println("Type --help to see a list of commands you can type.");
@@ -38,10 +42,14 @@ public class OnlineShopSystem {
 				case "--help":
 					printCommands();
 					break;
+				case "view cart":
+					userCart.viewCart();
+					break;
 				case "exit":
 					System.out.println("goodbye");
 					return;
 				default:
+					System.out.println("Invalid command, please try again.");
 					break;
 				}
 		}
