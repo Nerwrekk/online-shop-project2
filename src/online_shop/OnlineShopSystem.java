@@ -27,6 +27,34 @@ public class OnlineShopSystem {
 		
 	}
 	
-	
+	public List<String> search(String searchString) {
+		List<String> screen = new ArrayList();
+
+		return screen;
+	}
+
+	public List<String> add(Product product, int amount) {
+		List<String> screen = new ArrayList();
+
+		return screen;
+	}
+
+	public List<String> viewCategories() {
+		List<String> screen = new ArrayList();
+
+		return screen;
+	}
+
+	public List<String> viewCategory(Catagory category) {
+		List<String> screen = new ArrayList();
+
+		return screen;
+	}
+
+	public List<String> viewItem (Product product) {
+		List<String> screen = new ArrayList();
+
+		return screen;
+	}
 	
 }
