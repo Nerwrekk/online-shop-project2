@@ -77,7 +77,7 @@ public class FileManager {
 			System.out.println("File saved succesfully");
 		} catch (IOException e) {
 			System.err.println("Something went wrong when trying to write the file");
-			System.err.println(e);
+			e.printStackTrace();
 		}
 	}
 	

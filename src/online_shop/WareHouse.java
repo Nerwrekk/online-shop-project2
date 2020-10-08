@@ -34,8 +34,9 @@ public class WareHouse {
 
 	public Product getProduct(String name) {
 		for (Product product : stock) {
-			if (product.getName() == name) {
-				return product;
+			//changed this to equal instead because == is unreliable
+			if (product.getName().equalsIgnoreCase(name)) {
+				return product.clone();
 			}
 		}
 		return null;

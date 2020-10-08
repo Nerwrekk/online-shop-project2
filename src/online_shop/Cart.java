@@ -134,4 +134,40 @@ public class Cart {
 		
 		return userCart;
 	}
+	
+	/*
+	 * This method sends a list of strings to our FileManager to store a cart in a file.
+	 */
+	public void saveCart() {
+		List<String> cartToSave = new ArrayList<String>();
+		
+		String securityNumber = "";
+		while(true) {
+			System.out.println("Please enter your social security number");
+			securityNumber = userInput.nextLine();
+			
+			//double check the value
+			System.out.print("Is this your security number: " + securityNumber + " (y/n): ");
+			String input = userInput.nextLine();
+			
+			if (input.equalsIgnoreCase("y")) {
+				break;
+			} 
+		}
+		
+		//add security number
+		cartToSave.add(securityNumber);
+		
+		//now lets loop through all products in our cart
+		for (Product product : myList) {
+			//we only need to store the name of the product followed by the amount
+			cartToSave.add(product.getName() + "," + product.getAmount());
+		}
+		
+		//we need to get a number that will be in the end of our filename.
+		int cartNumber = FileManager.getInstance().loadInCarts().size() + 1;
+		
+		//Send the List to FileManager so that the cart will be saved.
+		FileManager.getInstance().writeToFile(cartToSave, FileManager.CART_DIRECTORY, "cart" + cartNumber, ".txt");
+	}
 }

@@ -109,6 +109,12 @@ public class Product implements Priceable {
 		return this.name + ", " + this.description + ", amount: " + this.amount + 
 				", price: " + this.price + ", total cost: " + this.calculatePrice() + " sek";
 	}
+	
+	
+	@Override
+	public Product clone() {
+		return new Product(this);
+	}
 
 	// Returns the properties of a product formatted for saving in a CSV-file.
 	public String toCSV() {
