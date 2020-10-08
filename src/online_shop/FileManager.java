@@ -65,6 +65,22 @@ public class FileManager {
 		}
 	}
 	
+	public void writeToFile(List<String> content, String path, String fileName, String format) {
+		try {
+			BufferedWriter bWriter = new BufferedWriter(new FileWriter(path + "/" + fileName+format));
+			
+			for (String element : content) {
+				bWriter.write(element);
+				bWriter.newLine();
+			}
+			bWriter.close();
+			System.out.println("File saved succesfully");
+		} catch (IOException e) {
+			System.err.println("Something went wrong when trying to write the file");
+			System.err.println(e);
+		}
+	}
+	
 	public List<List<String>> loadInCarts() {
 		File[] cartFiles = new File(CART_DIRECTORY).listFiles();
 		
