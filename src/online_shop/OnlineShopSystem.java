@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.smartcardio.CommandAPDU;
-
 import online_shop.product.Catagory;
 import online_shop.product.Manufacturer;
 import online_shop.product.Product;
@@ -28,13 +26,17 @@ public class OnlineShopSystem {
 	
 	public void goShopping(Cart userCart, WareHouse wareHouse) {
 		System.out.println("Hello! Welcome to Console Shop!");
+		printCommands();
 		while(true) {
 			System.out.println("What would you like to do?");
+			System.out.println("Type --help to see a list of commands you can type.");
+			
+			//get an input from the user
 			String command = userInput.nextLine();
 			
 			switch (command) {
-				case "help":
-					System.out.println("help");
+				case "--help":
+					printCommands();
 					break;
 				case "exit":
 					System.out.println("goodbye");
@@ -43,6 +45,15 @@ public class OnlineShopSystem {
 					break;
 				}
 		}
+	}
+	
+	private void printCommands() {
+		System.out.println("Here are the commands you can type");
+		System.out.println("=================");
+		for (String command : commands) {
+			System.out.println(command);
+		}
+		System.out.println("=================");
 	}
 	
 	public List<String> search(String searchString) {
