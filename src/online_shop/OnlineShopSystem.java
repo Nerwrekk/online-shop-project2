@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import online_shop.product.Catagory;
+import online_shop.product.Category;
 import online_shop.product.Manufacturer;
 import online_shop.product.Product;
 
@@ -16,15 +16,22 @@ import online_shop.product.Product;
  */
 public class OnlineShopSystem {
 	private WareHouse wareHouse;
+	private Cart userCart;
 	private Scanner userInput;
 
-	private String[] commands = {"view catagories", "view manufacturer", "view cart", "get cart"};
+	private String[] commands = {"view catagories", "view [category]","view manufacturers", "view [manufacturer]", 
+								 "view cart", "get saved cart",
+								 "exit" };
 	
 	public OnlineShopSystem() {
 		userInput = new Scanner(System.in);
 	}
 	
 	public void goShopping(Cart userCart, WareHouse wareHouse) {
+		//initialize
+		this.userCart = userCart;
+		this.wareHouse = wareHouse;
+		
 		System.out.println("============================");
 		System.out.println("| Welcome to Console Shop! |");
 		System.out.println("============================");
@@ -36,25 +43,63 @@ public class OnlineShopSystem {
 			System.out.println("Type --help to see a list of commands you can type.");
 			
 			//get an input from the user
-			String command = userInput.nextLine();
+			String command = userInput.nextLine().toLowerCase();
 			
-			switch (command) {
-				case "--help":
-					printCommands();
-					break;
-				case "view cart":
-					userCart.viewCart();
-					break;
-				case "exit":
-					System.out.println("goodbye");
-					return;
-				default:
-					System.out.println("Invalid command, please try again.");
-					break;
-				}
+			// view commands
+			viewCommands(command);
+			
+			//standard commands
+			standardCommands(command);
+			
+			switch (command.toLowerCase()) {
+			case "--help":
+				printCommands();
+				break;
+			case "exit":
+				System.out.println("goodbye");
+				return;
+			default:
+				System.out.println("Invalid command, please try again.");
+				break;
+			}
+	
 		}
 	}
 	
+	private void standardCommands(String command) {
+		
+	}
+
+	private void viewCommands(String command) {
+		if (command.startsWith("view")) {
+			String secondWord = command.split(" ")[1];
+			
+			//check if the second word matches any category
+			checkIfCategory(secondWord);
+			
+			switch (secondWord.toLowerCase()) {
+				case "cart":
+					userCart.viewCart();
+					break;
+				case "categories":
+					System.out.println(viewCategories());
+					break;
+				case "manufacturers":
+					Manufacturer.printAllManufacturers();
+					break;
+				default:
+					break;
+			}
+		}	
+	}
+
+	private void checkIfCategory(String secondWord) {
+		Category category = Category.getCatagory(secondWord);
+		if (category != null) {
+			System.out.println(viewCategory(category));
+		}
+	}
+
 	private void printCommands() {
 		System.out.println("Here are the commands you can type");
 		System.out.println("=================");
@@ -84,14 +129,14 @@ public class OnlineShopSystem {
 
 	public List<String> viewCategories() {
 		List<String> screen = new ArrayList();
-		Catagory[] categories = Catagory.values();
-		for(Catagory category : categories) {
+		Category[] categories = Category.values();
+		for(Category category : categories) {
 			screen.add(category.getName());
 		}
 		return screen;
 	}
 
-	public List<String> viewCategory(Catagory category) {
+	public List<String> viewCategory(Category category) {
 		List<String> screen = new ArrayList();
 		List<Product> productsInCategory = new ArrayList();
 		for (Product product : wareHouse.getStock()) {

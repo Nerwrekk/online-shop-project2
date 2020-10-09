@@ -31,6 +31,10 @@ public class Cart {
 	}
 
 	public void viewCart() {
+		if (this.myList.size() <= 0) {
+			System.out.println("Cart is currently empty.");
+			return;
+		}
 		double totalCost = 0.0;
 		for (Product product : myList) {
 			System.out.println(product.toString());

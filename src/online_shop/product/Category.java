@@ -1,11 +1,11 @@
 package online_shop.product;
 
-public enum Catagory {
+public enum Category {
 	Dairy("Dairy"), Fruit("Fruit"), Greens("Greens");
 	
 	private final String name;
 	
-	private Catagory(String name) {
+	private Category(String name) {
 		this.name = name;
 	}
 	
@@ -13,9 +13,9 @@ public enum Catagory {
 		return name;
 	}
 	
-	public static Catagory getCatagory(String name) {
-		Catagory[] catagories = Catagory.values();
-		for (Catagory category : catagories) {
+	public static Category getCatagory(String name) {
+		Category[] catagories = Category.values();
+		for (Category category : catagories) {
 			if (category.getName().equalsIgnoreCase(name)) {
 				return category;
 			}

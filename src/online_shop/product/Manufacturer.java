@@ -23,4 +23,10 @@ public enum Manufacturer {
 		}
 		return null;
 	}
+	
+	public static void printAllManufacturers() {
+		for (Manufacturer manufacturer : Manufacturer.values()) {
+			System.out.println(manufacturer.name);
+		}
+	}
 }

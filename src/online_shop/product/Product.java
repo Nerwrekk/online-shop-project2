@@ -9,11 +9,11 @@ public class Product implements Priceable {
 	private String name;
 	private String description;
 	private double price;
-	private Catagory myCatagory;
+	private Category myCatagory;
 	private Manufacturer myManufacturer;
 	private int amount;
 	
-	public Product(String name, String description, Manufacturer myManufacturer, Catagory myCatagory, double price) {
+	public Product(String name, String description, Manufacturer myManufacturer, Category myCatagory, double price) {
 		this.name = name;
 		this.description = description;
 		this.price = price;
@@ -35,7 +35,7 @@ public class Product implements Priceable {
 		this.name = properties[0];
 		this.description = properties[1];
 		this.myManufacturer = Manufacturer.getManufacturer(properties[2]);
-		this.myCatagory = Catagory.getCatagory(properties[3]);
+		this.myCatagory = Category.getCatagory(properties[3]);
 		this.price = Double.parseDouble(properties[4]);
 	}
 
@@ -69,12 +69,12 @@ public class Product implements Priceable {
 	}
 
 
-	public Catagory getMyCatagory() {
+	public Category getMyCatagory() {
 		return myCatagory;
 	}
 
 
-	public void setMyCatagory(Catagory myCatagory) {
+	public void setMyCatagory(Category myCatagory) {
 		this.myCatagory = myCatagory;
 	}
 

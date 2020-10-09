@@ -22,6 +22,11 @@ public class WareHouse {
 	public WareHouse(String stockPath) {
 		this.stockPath = stockPath;
 		loadStock();
+		
+		//TODO: remove after finished, quick stock fill.
+		for (Product product : stock) {
+			changeItemStock(product, 10);
+		}
 	}
 
 	public ArrayList<Product> getStock() {
@@ -40,6 +45,16 @@ public class WareHouse {
 			}
 		}
 		return null;
+	}
+	
+	public Product getProduct(String name, int amount) {
+		if (amount <= 0) {
+			System.out.println("invalid amount");
+			return null;
+		}
+		Product product = getProduct(name);
+		product.setAmount(amount);
+		return product;
 	}
 
 	// Changes the stock of a product.
