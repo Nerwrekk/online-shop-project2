@@ -10,14 +10,12 @@ public class Cart {
 	
 	private List<Product> myList;
 	private Scanner userInput;
-	private OnlineShopSystem onlineShop;
 	private WareHouse wareHouse;
 	
 	
 	public Cart(OnlineShopSystem onlineShop, WareHouse wareHouse) {
 		myList = new ArrayList<Product>();
 		this.userInput = new Scanner(System.in);
-		this.onlineShop = onlineShop;
 		this.wareHouse = wareHouse;
 	}
 	
@@ -47,6 +45,11 @@ public class Cart {
 	}
 
 	public void getSavedCart() {
+		if (!myList.isEmpty()) {
+			System.out.println("Your cart needs to be empty in order to load up an existing cart.");
+			return;
+		}
+		
 		List<List<String>> carts = FileManager.getInstance().loadInCarts();
 		
 		String securityNumber = getSecurityNumber();
@@ -170,6 +173,10 @@ public class Cart {
 		
 		//Send the List to FileManager so that the cart will be saved.
 		FileManager.getInstance().writeToFile(cartToSave, FileManager.CART_DIRECTORY, "cart" + cartNumber, ".txt");
+		
+		//empty cart
+		myList = new ArrayList<Product>();
+		System.out.println("Cart is now empty.");
 	}
 	
 	private String getSecurityNumber() {

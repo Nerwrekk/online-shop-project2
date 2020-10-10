@@ -12,7 +12,6 @@ import online_shop.product.Product;
  * OnlineShopSystem purpose is to guide a user through the online store so they can buy the
  * groceries they need
  * 
- * IDEA: should maybe implement singleton pattern.
  */
 public class OnlineShopSystem {
 	private WareHouse wareHouse;
@@ -22,7 +21,7 @@ public class OnlineShopSystem {
 
 
 	private String[] commands = {"view categories", "view [category]","view manufacturers", "view [manufacturer]", 
-								 "view cart", "get saved cart", "save cart",
+								 "view cart", "save cart", "load cart",
 								 "add [product]", "remove [product]",
 								 "exit" };
 	
@@ -69,12 +68,13 @@ public class OnlineShopSystem {
 			}
 			
 		}
+		System.out.println("Goodbye! Thank for shopping in Console shop, come back soon :)");
 	}
 	
 	private void addingProduct(String command) {
 		String[] productStringArray = command.split(" ");
 		
-		String productName = extractProductName(productStringArray);
+		String productName = extractName(productStringArray);
 		
 		//check so that product is not null
 		if (wareHouse.getProduct(productName) == null) {
@@ -151,7 +151,7 @@ public class OnlineShopSystem {
 		
 		String[] productStringArray = command.split(" ");
 		
-		String productName = extractProductName(productStringArray);
+		String productName = extractName(productStringArray);
 		
 		//get warehouse stock product and cart product
 		Product wareHouseProduct = wareHouse.getWareHouseProduct(productName);
@@ -197,7 +197,7 @@ public class OnlineShopSystem {
 		}
 	}
 
-	private String extractProductName(String[] productStringArray) {
+	private String extractName(String[] productStringArray) {
 		String productName = "";
 		for (int i = 1; i < productStringArray.length; i++) {
 			productName += productStringArray[i];
@@ -216,8 +216,9 @@ public class OnlineShopSystem {
 			break;
 		case "save cart":
 			userCart.saveCart();
+			isShopping = false;
 			break;
-		case "get saved cart":
+		case "load cart":
 			userCart.getSavedCart();
 			//update stock in warehouse
 			for (Product product : userCart.getMyList()) {
@@ -226,7 +227,6 @@ public class OnlineShopSystem {
 			}
 			break;
 		case "exit":
-			System.out.println("goodbye");
 			isShopping = false;
 			return;
 		default:
@@ -235,16 +235,16 @@ public class OnlineShopSystem {
 		}
 	}
 
-	private void viewCommands(String command) {
-		String secondWord = command.split(" ")[1];
+	private void viewCommands(String command) {	
+		String viewCommandString = extractName(command.split(" "));
 		
 		//check if the second word matches any specific category
-		checkIfCategory(secondWord);
+		checkIfCategory(viewCommandString);
 		
 		//check if the second word matches any specific manufacturer
-		checkIfManufacturer(secondWord);
+		checkIfManufacturer(viewCommandString);
 		
-		switch (secondWord.toLowerCase()) {
+		switch (viewCommandString.toLowerCase()) {
 			case "cart":
 				userCart.viewCart();
 				break;
@@ -259,18 +259,19 @@ public class OnlineShopSystem {
 		}
 	}
 
-	private void checkIfManufacturer(String secondWord) {
-		Manufacturer manufacturer = Manufacturer.getManufacturer(secondWord);
+	private void checkIfManufacturer(String manufacturerString) {
+		Manufacturer manufacturer = Manufacturer.getManufacturer(manufacturerString);
 		if (manufacturer != null) {
+			System.out.println(manufacturer.getName() + " products: ");
 			System.out.println(viewManufacturer(manufacturer));
 		}
 		
 	}
 
-	private void checkIfCategory(String secondWord) {
-		Category category = Category.getCatagory(secondWord);
-		
+	private void checkIfCategory(String categoryString) {
+		Category category = Category.getCatagory(categoryString);
 		if (category != null) {
+			System.out.println(category.getName() + " products: ");
 			System.out.println(viewCategory(category));
 		}
 	}

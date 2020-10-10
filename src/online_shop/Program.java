@@ -1,8 +1,5 @@
 package online_shop;
 
-import java.util.List;
-
-import online_shop.product.Product;
 
 public class Program {
 

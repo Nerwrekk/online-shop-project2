@@ -1,14 +1,8 @@
 package online_shop;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import online_shop.product.Category;
-import online_shop.product.Manufacturer;
 import online_shop.product.Product;
 
 
