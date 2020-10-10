@@ -10,14 +10,12 @@ public class Cart {
 	
 	private List<Product> myList;
 	private Scanner userInput;
-	private OnlineShopSystem onlineShop;
 	private WareHouse wareHouse;
 	
 	
 	public Cart(OnlineShopSystem onlineShop, WareHouse wareHouse) {
 		myList = new ArrayList<Product>();
 		this.userInput = new Scanner(System.in);
-		this.onlineShop = onlineShop;
 		this.wareHouse = wareHouse;
 	}
 	
@@ -35,6 +33,8 @@ public class Cart {
 			System.out.println("Cart is currently empty.");
 			return;
 		}
+		System.out.println("===================================");
+		System.out.println("Cart:");
 		double totalCost = 0.0;
 		for (Product product : myList) {
 			System.out.println(product.toString());
@@ -45,6 +45,11 @@ public class Cart {
 	}
 
 	public void getSavedCart() {
+		if (!myList.isEmpty()) {
+			System.out.println("Your cart needs to be empty in order to load up an existing cart.");
+			return;
+		}
+		
 		List<List<String>> carts = FileManager.getInstance().loadInCarts();
 		
 		String securityNumber = getSecurityNumber();
@@ -168,6 +173,10 @@ public class Cart {
 		
 		//Send the List to FileManager so that the cart will be saved.
 		FileManager.getInstance().writeToFile(cartToSave, FileManager.CART_DIRECTORY, "cart" + cartNumber, ".txt");
+		
+		//empty cart
+		myList = new ArrayList<Product>();
+		System.out.println("Cart is now empty.");
 	}
 	
 	private String getSecurityNumber() {
@@ -187,9 +196,30 @@ public class Cart {
 		}
 	}
 
-
-	public void addProductToCart(Product product, int amount) {
-		product.setAmount(amount);
-		myList.add(product);
+	public void addProduct(Product product, int amount) {
+		if (myList.contains(product)) {
+			product.setAmount(product.getAmount() + amount);
+		} else { 
+			product.setAmount(amount);
+			myList.add(product);
+		}
+	}
+	
+	public void removeProduct(Product product, int amount) {
+		if (amount == product.getAmount()) {
+			myList.remove(product);
+		} else {
+			product.setAmount(product.getAmount() - amount);
+		}
+	}
+	
+	public Product getProductFromCart(String productName) {
+		for (Product product : myList) {
+			if (product.getName().equalsIgnoreCase(productName)) {
+				return product;
+			}
+		}
+		
+		return null;
 	}
 }
