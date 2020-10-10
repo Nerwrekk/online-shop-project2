@@ -20,15 +20,9 @@ public class OnlineShopSystem {
 	private boolean isShopping;
 
 
-<<<<<<< HEAD
-	private String[] commands = {"search [search string]", "view categories", "view [category]","view manufacturers", "view [manufacturer]",
-								 "view cart", "save cart", "get saved cart",
-								 "add [product]",
-=======
 	private String[] commands = {"view categories", "view [category]","view manufacturers", "view [manufacturer]", 
 								 "view cart", "save cart", "load cart",
 								 "add [product]", "remove [product]",
->>>>>>> onlineshop
 								 "exit" };
 	
 	public OnlineShopSystem() {
