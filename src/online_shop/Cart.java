@@ -40,11 +40,14 @@ public class Cart {
 			System.out.println(product.toString());
 			totalCost += product.calculatePrice();
 		}
+		totalCost = Math.round(totalCost * 100.0) / 100.0;
 		System.out.println("The final price is: " + totalCost + " sek");
 	}
 
-	public void getSavedCart(String securityNumber) {
+	public void getSavedCart() {
 		List<List<String>> carts = FileManager.getInstance().loadInCarts();
+		
+		String securityNumber = getSecurityNumber();
 		
 		//list that will add all of our user existing carts that matches the social security number
 		List<List<String>> userSavedCarts = new ArrayList<List<String>>();
@@ -53,8 +56,12 @@ public class Cart {
 				userSavedCarts.add(list);
 			}
 		}
-		//here we check if our customer have multiple saved carts or just one
-		if (userSavedCarts.size() == 1) {
+		//here we check if our customer have multiple saved carts or just one or none
+		if (userSavedCarts.size() == 0) {
+			System.out.println("Could not find any carts with given security number. Please try again.");
+			return;
+		}
+		else if (userSavedCarts.size() == 1) {
 			myList = generateCart(userSavedCarts.get(0), securityNumber);
 		} else {
 			//if the user have multiple carts we need to ask them which cart they want
@@ -118,7 +125,7 @@ public class Cart {
 	 * This method is the last step when retrieving an existing cart. It recreates all the products that are inside the cart.
 	 * This method is here because OnlineShopSystem is in charge of containing all existing products.
 	 */
-	public List<Product> generateCart(List<String> cartString, String securityNumber) {
+	private List<Product> generateCart(List<String> cartString, String securityNumber) {
 		List<Product> userCart = new ArrayList<Product>();
 		
 		for (String productString : cartString) {
@@ -145,19 +152,7 @@ public class Cart {
 	public void saveCart() {
 		List<String> cartToSave = new ArrayList<String>();
 		
-		String securityNumber = "";
-		while(true) {
-			System.out.println("Please enter your social security number");
-			securityNumber = userInput.nextLine();
-			
-			//double check the value
-			System.out.print("Is this your security number: " + securityNumber + " (y/n): ");
-			String input = userInput.nextLine();
-			
-			if (input.equalsIgnoreCase("y")) {
-				break;
-			} 
-		}
+		String securityNumber = getSecurityNumber();
 		
 		//add security number
 		cartToSave.add(securityNumber);
@@ -173,5 +168,28 @@ public class Cart {
 		
 		//Send the List to FileManager so that the cart will be saved.
 		FileManager.getInstance().writeToFile(cartToSave, FileManager.CART_DIRECTORY, "cart" + cartNumber, ".txt");
+	}
+	
+	private String getSecurityNumber() {
+		String securityNumber = "";
+		while(true) {
+			System.out.println("Please enter your social security number");
+			System.out.print("Security number: ");
+			securityNumber = userInput.nextLine();
+			
+			//double check the value
+			System.out.print("Is this your security number: " + securityNumber + " (y/n): ");
+			String input = userInput.nextLine();
+			
+			if (input.equalsIgnoreCase("y")) {
+				return securityNumber;
+			} 
+		}
+	}
+
+
+	public void addProductToCart(Product product, int amount) {
+		product.setAmount(amount);
+		myList.add(product);
 	}
 }

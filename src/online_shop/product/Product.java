@@ -107,7 +107,7 @@ public class Product implements Priceable {
 	@Override
 	public String toString() {
 		return this.name + ", " + this.description + ", amount: " + this.amount + 
-				", price: " + this.price + ", total cost: " + this.calculatePrice() + " sek";
+				", price: " + this.price + ", total cost: " + Math.round(this.calculatePrice() * 100.0)/100.0 + " sek";
 	}
 	
 	

@@ -17,18 +17,6 @@ public class Program {
 		Cart userCart = new Cart(onlineShop, wareHouse);
 		
 		onlineShop.goShopping(userCart, wareHouse);
-		
-		//userCart.getSavedCart("9204064316");
-		//userCart.getSavedCart("9204064316");
-		//Just a fast test to see if i could save a cart
-		/*
-		userCart.getMyList().add(wareHouse.getStock().get(0).clone());
-		userCart.getMyList().get(0).setAmount(3);
-		userCart.getMyList().add(wareHouse.getStock().get(3).clone());
-		userCart.getMyList().get(1).setAmount(66);
-		userCart.viewCart();
-		userCart.saveCart();
-		*/
 	}
 
 }
