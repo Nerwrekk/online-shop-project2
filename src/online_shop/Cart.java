@@ -188,8 +188,26 @@ public class Cart {
 	}
 
 
-	public void addProductToCart(Product product, int amount) {
+	public void addProduct(Product product, int amount) {
 		product.setAmount(amount);
 		myList.add(product);
+	}
+	
+	public void removeProduct(Product product, int amount) {
+		if (amount <= 0) {
+			myList.remove(product);
+		} else {
+			product.setAmount(product.getAmount() - amount);
+		}
+	}
+	
+	public Product getProductFromCart(String productName) {
+		for (Product product : myList) {
+			if (product.getName().equalsIgnoreCase(productName)) {
+				return product;
+			}
+		}
+		
+		return null;
 	}
 }

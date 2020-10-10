@@ -22,8 +22,8 @@ public class OnlineShopSystem {
 
 
 	private String[] commands = {"view categories", "view [category]","view manufacturers", "view [manufacturer]", 
-								 "view cart", "get saved cart",
-								 "add [product]",
+								 "view cart", "get saved cart", "save cart",
+								 "add [product]", "remove [product]",
 								 "exit" };
 	
 	public OnlineShopSystem() {
@@ -58,6 +58,10 @@ public class OnlineShopSystem {
 			// add product
 			else if (command.startsWith("add")) {
 				addingProduct(command);
+			}
+			//remove product or amount
+			else if (command.startsWith("remove")) {
+				removeProduct(command);
 			}
 			//standard commands
 			else {
@@ -109,7 +113,7 @@ public class OnlineShopSystem {
 						wareHouse.changeItemStock(wareHouseProduct, -amount);
 						
 						//adding product to cart
-						userCart.addProductToCart(product, amount);
+						userCart.addProduct(product, amount);
 						System.out.println(product.getName() + " successfully added to cart");
 						
 						//done
@@ -126,6 +130,55 @@ public class OnlineShopSystem {
 			}
 		}
 		
+	}
+	
+	public void removeProduct(String command) {
+		String[] productStringArray = command.split(" ");
+		
+		String productName = extractProductName(productStringArray);
+		
+		//get warehouse stock product and cart product
+		Product wareHouseProduct = wareHouse.getWareHouseProduct(productName);
+		Product productToRemove = userCart.getProductFromCart(productName);
+		
+		while (true) {
+			System.out.println("preparing to remove [" + productToRemove.getName() + "]");
+			System.out.println("Please enter the amount you wish to remove.");
+			System.out.print("Amount: ");
+			
+			String amountString = userInput.nextLine();
+			
+			if (amountString.equalsIgnoreCase("exit")) {
+				System.out.println("Removing product aborted");
+				return;
+			}
+			//using try catch in case the user makes an incorrect input value.
+			try {
+				//check so that we don't pick a number higher then the cart have.
+				int amount = Integer.parseInt(amountString);
+				
+				if (amount <= 0 || amount > productToRemove.getAmount()) {
+					System.out.println("Invalid number, please try again");
+					continue;
+				}
+				
+				userCart.removeProduct(productToRemove, amount);
+				wareHouse.changeItemStock(wareHouseProduct, amount);
+				
+				if (!userCart.getMyList().contains(productToRemove)) {
+					System.out.println(productToRemove.getName() + " removed");
+				} else {
+					System.out.println(productToRemove.getName() + " amount now set to: " + productToRemove.getAmount());
+				}
+				
+				System.out.println("stock for " + wareHouseProduct.getName() + " have been refilled by " + amount);
+				return;
+				
+			} catch (NumberFormatException e) {
+				System.out.println("Invalid number, please try again");
+				continue;
+			}
+		}
 	}
 
 	private String extractProductName(String[] productStringArray) {
