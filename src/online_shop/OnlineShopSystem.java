@@ -76,15 +76,25 @@ public class OnlineShopSystem {
 		
 		String productName = extractProductName(productStringArray);
 		
+		//check so that product is not null
+		if (wareHouse.getProduct(productName) == null) {
+			System.out.println("Invalid product");
+			return;
+		}
+		
 		//check if product stock is not empty
 		if (wareHouse.isOutOfStock(wareHouse.getWareHouseProduct(productName))) {
 			System.out.println(wareHouse.getWareHouseProduct(productName).getName() + " is currently out of order.");
 			return;
 		}
 		
-		//get a clone product
-		Product product = wareHouse.getProduct(productName);
+		//get a clone product if it does not already exists in the cart
+		Product product = userCart.getProductFromCart(productName); 
+		if (product == null) {
+			product = wareHouse.getProduct(productName);
+		}
 		
+		//this check is if the urser have misspelled the product name.
 		if (product == null) {
 			System.out.println("Invalid product name, please try again");
 			return;
@@ -133,6 +143,12 @@ public class OnlineShopSystem {
 	}
 	
 	public void removeProduct(String command) {
+		//check so that cart is not empty
+		if (userCart.getMyList().isEmpty()) {
+			System.out.println("Your cart is empty.");
+			return;
+		}
+		
 		String[] productStringArray = command.split(" ");
 		
 		String productName = extractProductName(productStringArray);
@@ -142,7 +158,7 @@ public class OnlineShopSystem {
 		Product productToRemove = userCart.getProductFromCart(productName);
 		
 		while (true) {
-			System.out.println("preparing to remove [" + productToRemove.getName() + "]");
+			System.out.println("preparing to remove [" + productToRemove.getName() + "] in cart, amount: " + productToRemove.getAmount());
 			System.out.println("Please enter the amount you wish to remove.");
 			System.out.print("Amount: ");
 			
@@ -165,13 +181,13 @@ public class OnlineShopSystem {
 				userCart.removeProduct(productToRemove, amount);
 				wareHouse.changeItemStock(wareHouseProduct, amount);
 				
-				if (!userCart.getMyList().contains(productToRemove)) {
-					System.out.println(productToRemove.getName() + " removed");
+				if (!(userCart.getMyList().contains(productToRemove))) {
+					System.out.println("[" + productToRemove.getName() + "] has been removed from cart");
 				} else {
 					System.out.println(productToRemove.getName() + " amount now set to: " + productToRemove.getAmount());
 				}
 				
-				System.out.println("stock for " + wareHouseProduct.getName() + " have been refilled by " + amount);
+				System.out.println("stock for [" + wareHouseProduct.getName() + "] have been refilled by " + amount);
 				return;
 				
 			} catch (NumberFormatException e) {

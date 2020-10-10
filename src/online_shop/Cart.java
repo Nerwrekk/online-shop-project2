@@ -35,6 +35,8 @@ public class Cart {
 			System.out.println("Cart is currently empty.");
 			return;
 		}
+		System.out.println("===================================");
+		System.out.println("Cart:");
 		double totalCost = 0.0;
 		for (Product product : myList) {
 			System.out.println(product.toString());
@@ -187,14 +189,17 @@ public class Cart {
 		}
 	}
 
-
 	public void addProduct(Product product, int amount) {
-		product.setAmount(amount);
-		myList.add(product);
+		if (myList.contains(product)) {
+			product.setAmount(product.getAmount() + amount);
+		} else { 
+			product.setAmount(amount);
+			myList.add(product);
+		}
 	}
 	
 	public void removeProduct(Product product, int amount) {
-		if (amount <= 0) {
+		if (amount == product.getAmount()) {
 			myList.remove(product);
 		} else {
 			product.setAmount(product.getAmount() - amount);
