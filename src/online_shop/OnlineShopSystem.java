@@ -21,8 +21,8 @@ public class OnlineShopSystem {
 	private boolean isShopping;
 
 
-	private String[] commands = {"view categories", "view [category]","view manufacturers", "view [manufacturer]", 
-								 "view cart", "get saved cart",
+	private String[] commands = {"search [search string]", "view categories", "view [category]","view manufacturers", "view [manufacturer]",
+								 "view cart", "save cart", "get saved cart",
 								 "add [product]",
 								 "exit" };
 	
@@ -60,7 +60,9 @@ public class OnlineShopSystem {
 				addingProduct(command);
 			}
 			//standard commands
-			else {
+			else if (command.startsWith("search")){
+				System.out.println(search(command.replaceFirst("search ", "")));
+			} else {
 				standardCommands(command);
 			}
 			
@@ -224,12 +226,6 @@ public class OnlineShopSystem {
 			}
 		}
 		screen = productList(foundProducts);
-		return screen;
-	}
-
-	public List<String> add(String productName, int amount) {
-		List<String> screen = new ArrayList();
-
 		return screen;
 	}
 
