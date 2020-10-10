@@ -23,6 +23,7 @@ public class OnlineShopSystem {
 	private String[] commands = {"view categories", "view [category]","view manufacturers", "view [manufacturer]", 
 								 "view cart", "save cart", "load cart",
 								 "add [product]", "remove [product]",
+								 "search [product]",
 								 "exit" };
 	
 	public OnlineShopSystem() {
