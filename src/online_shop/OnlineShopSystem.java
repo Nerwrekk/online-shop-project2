@@ -167,6 +167,12 @@ public class OnlineShopSystem {
 		Product wareHouseProduct = wareHouse.getWareHouseProduct(productName);
 		Product productToRemove = userCart.getProductFromCart(productName);
 		
+		//make sure that the product is not null
+		if (productToRemove == null || wareHouseProduct == null) {
+			System.out.println("Invalid product name");
+			return;
+		}
+		
 		while (true) {
 			System.out.println("preparing to remove [" + productToRemove.getName() + "] in cart, amount: " + productToRemove.getAmount());
 			System.out.println("Please enter the amount you wish to remove.");
