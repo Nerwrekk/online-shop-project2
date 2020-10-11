@@ -16,6 +16,7 @@ public class FileManager {
 	
 	public static final String PRODUCT_PATH = "files/products.csv";
 	public static final String CART_DIRECTORY = "files/saved_carts";
+	public static final String ORDER_DIRECTORY = "files/orders";
 	
 	
 	private FileManager() {
