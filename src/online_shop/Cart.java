@@ -164,6 +164,11 @@ public class Cart {
 	 * This method sends a list of strings to our FileManager to store a cart in a file.
 	 */
 	public void saveCart() {
+		if (myList.isEmpty()) {
+			System.out.println("Can't save an empty cart.");
+			return;
+		}
+		
 		List<String> cartToSave = new ArrayList<String>();
 		
 		String securityNumber = getSecurityNumber();

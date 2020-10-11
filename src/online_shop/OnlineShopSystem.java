@@ -226,7 +226,6 @@ public class OnlineShopSystem {
 			break;
 		case "save cart":
 			userCart.saveCart();
-			isShopping = false;
 			break;
 		case "load cart":
 			userCart.getSavedCart();
