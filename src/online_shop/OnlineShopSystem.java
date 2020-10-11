@@ -65,7 +65,10 @@ public class OnlineShopSystem {
 			}
 			//standard commands
 			else if (command.startsWith("search")){
-				System.out.println(search(command.replaceFirst("search ", "")));
+				List<List> view = new ArrayList(search(command.replaceFirst("search ", "")));
+				for (List list : view) {
+					System.out.println(list);
+				}
 			} else {
 				standardCommands(command);
 			}
@@ -288,15 +291,22 @@ public class OnlineShopSystem {
 		System.out.println("=================");
 	}
 	
-	public List<String> search(String searchString) {
-		List<String> screen = new ArrayList();
+	public List<List> search(String searchString) {
+		List<List> screen = new ArrayList();
 		List<Product> foundProducts = new ArrayList();
 		for(Product product : wareHouse.getStock()) {
 			if(product.getName().toLowerCase().contains(searchString.toLowerCase())) {
 				foundProducts.add(product);
 			}
 		}
-		screen = productList(foundProducts);
+
+		for (Product product : foundProducts) {
+			List<String> productView = new ArrayList();
+			for (String productString : viewProduct(product.getName())) {
+				productView.add(productString);
+			}
+			screen.add(productView);
+		}
 		return screen;
 	}
 
