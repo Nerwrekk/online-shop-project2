@@ -355,7 +355,7 @@ public class OnlineShopSystem {
 
 	public List<String> viewProduct (String productName) {
 		List<String> screen = new ArrayList();
-		Product product = wareHouse.getProduct(productName);
+		Product product = wareHouse.getWareHouseProduct(productName);
 		screen.add(product.getName());
 		screen.add(product.getMyManufacturer().getName());
 		screen.add(product.getDescription());
