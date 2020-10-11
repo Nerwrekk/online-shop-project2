@@ -19,9 +19,8 @@ public class WareHouse {
 		this.stockPath = stockPath;
 		loadStock();
 		
-		//TODO: remove after finished, quick stock fill.
 		for (Product product : stock) {
-			changeItemStock(product, 10);
+			changeItemStock(product, 100);
 		}
 	}
 

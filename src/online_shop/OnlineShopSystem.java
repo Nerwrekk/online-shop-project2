@@ -2,7 +2,10 @@ package online_shop;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
+
+import javax.annotation.processing.Generated;
 
 import online_shop.product.Category;
 import online_shop.product.Manufacturer;
@@ -24,6 +27,7 @@ public class OnlineShopSystem {
 								 "view cart", "save cart", "load cart",
 								 "add [product]", "remove [product]",
 								 "search [product]",
+								 "checkout",
 								 "exit" };
 	
 	public OnlineShopSystem() {
@@ -74,7 +78,7 @@ public class OnlineShopSystem {
 			}
 			
 		}
-		System.out.println("Goodbye! Thank for shopping in Console shop, come back soon :)");
+		System.out.println("Goodbye! Thank you for shopping in Console shop, come back soon :)");
 	}
 	
 	private void addingProduct(String command) {
@@ -226,11 +230,9 @@ public class OnlineShopSystem {
 			break;
 		case "load cart":
 			userCart.getSavedCart();
-			//update stock in warehouse
-			for (Product product : userCart.getMyList()) {
-				Product wareHouseProduct = wareHouse.getWareHouseProduct(product.getName());
-				wareHouse.changeItemStock(wareHouseProduct, -product.getAmount());
-			}
+			break;
+		case "checkout":
+			checkout();
 			break;
 		case "exit":
 			isShopping = false;
@@ -239,6 +241,56 @@ public class OnlineShopSystem {
 			System.out.println("Invalid command, please try again.");
 			break;
 		}
+	}
+
+	private void checkout() {
+		if (userCart.getMyList().isEmpty()) {
+			System.out.println("You can't checkout with an empty cart");
+			return;
+		}
+		
+		//get security number
+ 		String securityNumber = userCart.getSecurityNumber();
+		
+ 		//generate an order id
+		String orderId = generateOrderId();
+		
+		//add everything to a list of strings
+		List<String> order = new ArrayList<String>();
+		order.add(securityNumber);
+		order.add(orderId);
+		
+		//add all products in the cart
+		for (Product product : userCart.getMyList()) {
+			order.add(product.toString());
+		}
+		
+		//add the final price in the end
+		String finalPrice = "Total cost: " + userCart.getFinalPrice();
+		order.add(finalPrice);
+		
+		//send the list to filemanager 
+		FileManager.getInstance().writeToFile(order, FileManager.ORDER_DIRECTORY, orderId, ".txt");
+		
+		//confirm
+		System.out.println("You're order have been comfirmed! Thank you for shopping at Console Shop! :)");
+		userCart.setMyList(new ArrayList<Product>());
+		
+	}
+
+	private String generateOrderId() {
+		String orderId = "[";
+		String alphabet = "ABCDEFGHIKLMNOPQRSTVXYZ";
+		String alphabetLower = alphabet.toLowerCase();
+		String numbers = "0123456789";
+		alphabet += alphabetLower + numbers;
+		Random random = new Random();
+		
+		for (int i = 0; i < 20; i++) {
+			orderId += alphabet.charAt(random.nextInt(alphabet.length()));
+		}
+		orderId += "]";
+		return orderId;
 	}
 
 	private void viewCommands(String command) {	

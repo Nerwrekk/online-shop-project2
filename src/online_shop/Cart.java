@@ -43,6 +43,15 @@ public class Cart {
 		totalCost = Math.round(totalCost * 100.0) / 100.0;
 		System.out.println("The final price is: " + totalCost + " sek");
 	}
+	
+	public double getFinalPrice() {
+		double finalPrice = 0;
+		for (Product product : myList) {
+			finalPrice += product.calculatePrice();
+		}
+		
+		return finalPrice;
+	}
 
 	public void getSavedCart() {
 		if (!myList.isEmpty()) {
@@ -179,7 +188,7 @@ public class Cart {
 		System.out.println("Cart is now empty.");
 	}
 	
-	private String getSecurityNumber() {
+	public String getSecurityNumber() {
 		String securityNumber = "";
 		while(true) {
 			System.out.println("Please enter your social security number");
