@@ -66,7 +66,7 @@ public class WareHouse {
 		saveStock();
 	}
 	
-
+	// Loads warehouse stock from file.
 	public void loadStock() {
 		List<String> productStrings = FileManager.getInstance().readFromFile(stockPath);
 		stock = new ArrayList<Product>();
@@ -76,6 +76,7 @@ public class WareHouse {
 		}
 	}
 
+	// Saves the current Warehouse stock to file.
 	public void saveStock() {
 		StringBuilder sb = new StringBuilder();
 		for (Product product : stock) {

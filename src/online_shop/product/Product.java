@@ -21,7 +21,7 @@ public class Product implements Priceable {
 		this.myManufacturer = myManufacturer;
 	}
 
-	// Creates a new product from another product
+	// Creates a new product from another product, ignoring stock.
 	public Product(Product product) {
 		this.name = product.name;
 		this.description = product.description;
@@ -37,6 +37,7 @@ public class Product implements Priceable {
 		this.myManufacturer = Manufacturer.getManufacturer(properties[2]);
 		this.myCatagory = Category.getCatagory(properties[3]);
 		this.price = Double.parseDouble(properties[4]);
+		this.amount = Integer.parseInt(properties[5]);
 	}
 
 	public String getName() {
@@ -124,7 +125,8 @@ public class Product implements Priceable {
 				description + ";" +
 				myManufacturer.getName() + ";" +
 				myCatagory.getName() + ";" +
-				price + ";";
+				price + ";" +
+				amount + ";";
 
 		return	csv;
 	}

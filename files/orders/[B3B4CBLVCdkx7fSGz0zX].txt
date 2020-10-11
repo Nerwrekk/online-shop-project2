@@ -1,0 +1,4 @@
+5
+[B3B4CBLVCdkx7fSGz0zX]
+Cheese, A mild cheese,it weighs 2.0kg, amount: 50, price: 19.99, total cost: 999.5 sek
+Total cost: 999.4999999999999
