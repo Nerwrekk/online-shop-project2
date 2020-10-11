@@ -61,7 +61,7 @@ public class WareHouse {
 		return false;
 	}
 
-	// Changes the stock of a product.
+	// Changes the stock of a product by the value of the int, (i.e. negative numbers will result in decreasing the stock).
 	public void changeItemStock(Product product, int stockChange) {
 		product.setAmount(product.getAmount() + stockChange);
 	}
