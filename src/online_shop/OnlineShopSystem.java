@@ -333,7 +333,9 @@ public class OnlineShopSystem {
 		return screen;
 	}
 
-	public List<String> productList (List<Product> products) {
+	// Takes a list of products and returns a list of strings, where each string in the list
+	// inlcudes a certain product's: Name, Stock amount, and Price.
+	private static List<String> productList (List<Product> products) {
 		List<String> productList = new ArrayList();
 		for(Product product : products) {
 			productList.add(product.getName() + "\t Stock:" + product.getAmount() + "\t Price: " + product.getPrice());
@@ -341,7 +343,7 @@ public class OnlineShopSystem {
 		return productList;
 	}
 
-	public List<String> viewItem (String productName) {
+	public List<String> viewProduct (String productName) {
 		List<String> screen = new ArrayList();
 		Product product = wareHouse.getProduct(productName);
 		screen.add(product.getName());
