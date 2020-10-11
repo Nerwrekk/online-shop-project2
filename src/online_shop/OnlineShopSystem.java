@@ -227,11 +227,6 @@ public class OnlineShopSystem {
 			break;
 		case "load cart":
 			userCart.getSavedCart();
-			//update stock in warehouse
-			for (Product product : userCart.getMyList()) {
-				Product wareHouseProduct = wareHouse.getWareHouseProduct(product.getName());
-				wareHouse.changeItemStock(wareHouseProduct, -product.getAmount());
-			}
 			break;
 		case "checkout":
 			checkout();
